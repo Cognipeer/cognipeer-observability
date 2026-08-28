@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "cognipeer-observability"
-version = "0.2.0"
+version = "0.2.1"
 description = "Ship agent traces from OpenAI Agents, Claude Agent SDK, LangChain, LangGraph and any OpenTelemetry-instrumented agent into Cognipeer Console."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -62,8 +62,8 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Cognipeer/cognipeer-observability"
-Documentation = "https://cognipeer.github.io/console/guide/observability/overview"
+Homepage = "https://docs.cognipeer.com/console/guide/observability/overview"
+Documentation = "https://docs.cognipeer.com/console/guide/observability/overview"
 Source = "https://github.com/Cognipeer/cognipeer-observability"
 Issues = "https://github.com/Cognipeer/cognipeer-observability/issues"
 
