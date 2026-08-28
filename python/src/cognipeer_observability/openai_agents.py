@@ -201,9 +201,10 @@ class CognipeerTracingProcessor(TracingProcessor):
         if duration is not None:
             event["durationMs"] = duration
         if error:
+            error_data = error.get("data") if isinstance(error, dict) else None
             event["error"] = {
                 "message": _error_message(error),
-                **({"data": error.get("data")} if isinstance(error, dict) and error.get("data") else {}),
+                **({"data": error_data} if error_data else {}),
             }
         if span_type == "function":
             event["toolName"] = getattr(data, "name", None)
@@ -584,7 +585,8 @@ def _normalize_tools(tools: Any) -> Optional[List[ToolDefinition]]:
         item = _plain(entry)
         if not isinstance(item, dict):
             continue
-        fn = item.get("function") if isinstance(item.get("function"), dict) else item
+        function = item.get("function")
+        fn = function if isinstance(function, dict) else item
         name = fn.get("name")
         if not isinstance(name, str) or not name:
             # Hosted tools (web_search, file_search, …) have no name, only a type.

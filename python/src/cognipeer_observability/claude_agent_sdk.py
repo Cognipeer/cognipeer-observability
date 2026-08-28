@@ -288,37 +288,37 @@ class ClaudeMessageTracer:
         self._flush_pending_tools()
         is_error = bool(_get(message, "is_error")) or _get(message, "subtype") != "success"
 
+        result_sections: List[Section] = [
+            {
+                "kind": "metadata",
+                "label": "Run summary",
+                "content": {
+                    "num_turns": _get(message, "num_turns"),
+                    "total_cost_usd": _get(message, "total_cost_usd"),
+                    "duration_api_ms": _get(message, "duration_api_ms"),
+                    "stop_reason": _get(message, "stop_reason"),
+                    "permission_denials": _get(message, "permission_denials"),
+                },
+            }
+        ]
+        result = _get(message, "result")
+        if result:
+            result_sections.append(
+                {
+                    "kind": "message",
+                    "label": "Final answer",
+                    "role": "assistant",
+                    "content": result,
+                }
+            )
+
         session.record(
             {
                 "type": "span",
                 "label": "Result",
                 "status": "error" if is_error else "success",
                 "durationMs": _get(message, "duration_ms"),
-                "sections": [
-                    {
-                        "kind": "metadata",
-                        "label": "Run summary",
-                        "content": {
-                            "num_turns": _get(message, "num_turns"),
-                            "total_cost_usd": _get(message, "total_cost_usd"),
-                            "duration_api_ms": _get(message, "duration_api_ms"),
-                            "stop_reason": _get(message, "stop_reason"),
-                            "permission_denials": _get(message, "permission_denials"),
-                        },
-                    },
-                    *(
-                        [
-                            {
-                                "kind": "message",
-                                "label": "Final answer",
-                                "role": "assistant",
-                                "content": _get(message, "result"),
-                            }
-                        ]
-                        if _get(message, "result")
-                        else []
-                    ),
-                ],
+                "sections": result_sections,
                 # Totals already came from the per-message usage; repeating the
                 # run-level `usage` here would double every token count.
                 "metadata": {"costUsd": _get(message, "total_cost_usd")},

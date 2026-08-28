@@ -12,13 +12,13 @@ from __future__ import annotations
 import threading
 import time
 from datetime import datetime, timezone
-from typing import Any, Callable, Dict, List, Optional, Sequence
+from typing import Any, Callable, Dict, List, Optional, Sequence, cast
 
 from ._config import Config
 from ._ids import new_session_id, new_span_id, new_trace_id, span_id_from
 from ._redact import sanitize_metadata, sanitize_sections, stringify
 from ._transport import Transport
-from .types import Agent, Event, Section, Summary, ToolDefinition
+from .types import Agent, Event, ResponseFormat, Section, Summary, ToolDefinition
 
 
 def _now_iso() -> str:
@@ -306,7 +306,7 @@ class TraceSession:
             event["toolDefinitions"] = tool_definitions
         response_format = response_format or init.get("response_format")
         if response_format:
-            event["responseFormat"] = response_format
+            event["responseFormat"] = cast(ResponseFormat, response_format)
         merged_sections = [*init.get("sections", []), *(sections or [])]
         if merged_sections:
             event["sections"] = merged_sections
@@ -429,7 +429,7 @@ class TraceSession:
         """
         if not agent or self._finished:
             return
-        self._agent = {**self._agent, **{k: v for k, v in agent.items() if v}}  # type: ignore[dict-item]
+        self._agent = cast(Agent, {**self._agent, **{k: v for k, v in agent.items() if v}})
 
     def flush(self, timeout: Optional[float] = None) -> None:
         """Deliver whatever is buffered and wait for the network to settle."""

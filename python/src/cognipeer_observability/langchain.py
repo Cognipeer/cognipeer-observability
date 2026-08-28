@@ -561,7 +561,9 @@ def cognipeer_config(
     return config
 
 
-def _model_name(params: Optional[Dict[str, Any]], metadata: Optional[Dict[str, Any]]) -> Optional[str]:
+def _model_name(
+    params: Optional[Dict[str, Any]], metadata: Optional[Dict[str, Any]]
+) -> Optional[str]:
     ls_model = (metadata or {}).get("ls_model_name")
     if isinstance(ls_model, str) and ls_model:
         return ls_model
@@ -764,7 +766,8 @@ def _tool_definitions(params: Optional[Dict[str, Any]]) -> Optional[List[ToolDef
     for entry in raw:
         if not isinstance(entry, dict):
             continue
-        fn = entry.get("function") if isinstance(entry.get("function"), dict) else entry
+        function = entry.get("function")
+        fn = function if isinstance(function, dict) else entry
         name = fn.get("name")
         if not isinstance(name, str) or not name:
             continue
@@ -826,7 +829,10 @@ def _chain_io(payload: Any) -> Any:
         for key, value in payload.items():
             if key == "messages" and isinstance(value, (list, tuple)):
                 out[key] = [
-                    {"role": _message_role(message), "content": getattr(message, "content", message)}
+                    {
+                        "role": _message_role(message),
+                        "content": getattr(message, "content", message),
+                    }
                     for message in value
                 ]
             else:
@@ -883,16 +889,22 @@ def install_langchain_tracing(**handler_options: Any) -> "CognipeerCallbackHandl
     if _HOOK_REGISTERED:
         return handler
 
-    register_hook = None
+    register_hook: Any = None
     try:  # LangChain 0.1+ keeps it here…
-        from langchain_core.tracers.context import register_configure_hook as register_hook
+        from langchain_core.tracers.context import (
+            register_configure_hook as tracer_register_hook,
+        )
     except ImportError:  # pragma: no cover - layout differs across versions
         try:
-            from langchain_core.callbacks.manager import (  # type: ignore[no-redef]
-                register_configure_hook as register_hook,
+            from langchain_core.callbacks.manager import (
+                register_configure_hook as manager_register_hook,
             )
         except ImportError:
-            register_hook = None
+            pass
+        else:
+            register_hook = manager_register_hook
+    else:
+        register_hook = tracer_register_hook
 
     if register_hook is None:  # pragma: no cover - very old langchain
         logger.warning(

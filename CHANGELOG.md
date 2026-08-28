@@ -19,6 +19,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 - Corrected npm and Python package documentation metadata to the canonical repository and docs URLs.
 
+### Fixed
+
+- Kept Python 3.9 CI focused on the core package while optional framework tests skip cleanly without their extras.
+- Made Python linting and type checking compatible with the supported Python version matrix.
+
 ## [0.2.0]
 
 ### Added
