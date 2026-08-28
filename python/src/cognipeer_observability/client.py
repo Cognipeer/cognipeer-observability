@@ -116,10 +116,8 @@ def _flush_at_exit() -> None:
     with _exit_lock:
         clients = list(_exit_clients)
     for client in clients:
-        try:
+        with contextlib.suppress(Exception):
             client.shutdown(timeout=5.0)
-        except Exception:  # pragma: no cover - interpreter teardown
-            pass
 
 
 _default: Optional[Cognipeer] = None

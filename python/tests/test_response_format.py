@@ -14,6 +14,8 @@ from typing import Any, Dict, List
 
 import pytest
 
+pytest.importorskip("langchain_core")
+
 import cognipeer_observability as cognipeer
 from cognipeer_observability import _transport
 from cognipeer_observability.langchain import _response_format

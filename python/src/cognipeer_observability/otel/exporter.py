@@ -54,7 +54,6 @@ from .normalize import NormalizedSpan, SpanData, normalize_span
 logger = logging.getLogger("cognipeer")
 
 try:  # pragma: no cover - import guard
-    from opentelemetry.sdk.trace import ReadableSpan
     from opentelemetry.sdk.trace.export import SpanExporter, SpanExportResult
 except ImportError as error:  # pragma: no cover - import guard
     raise ImportError(

@@ -83,9 +83,9 @@ import json
 import re
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from typing import Any, Dict, List, Mapping, Optional, Sequence, Tuple
+from typing import Any, Dict, List, Mapping, Optional, Sequence, Tuple, cast
 
-from ..types import Event, Section, ToolDefinition
+from ..types import Event, ResponseFormat, Section, ToolDefinition
 
 # ── Attribute names ──────────────────────────────────────────────────────
 # Verified against @arizeai/openinference-semantic-conventions and the
@@ -494,7 +494,8 @@ def _normalize_tool_entries(entries: Sequence[Any]) -> Optional[List[ToolDefinit
         if not isinstance(record, dict):
             continue
         # OpenInference wraps in the OpenAI envelope; the others do not.
-        inner = record.get("function") if isinstance(record.get("function"), dict) else record
+        function = record.get("function")
+        inner: Dict[str, Any] = function if isinstance(function, dict) else record
         name = inner.get("name")
         if not isinstance(name, str) or not name:
             continue
@@ -1017,7 +1018,7 @@ def normalize_span(span: Any) -> NormalizedSpan:
     if event_type == "ai_call":
         response_format = extract_response_format(attributes)
         if response_format:
-            event["responseFormat"] = response_format
+            event["responseFormat"] = cast(ResponseFormat, response_format)
 
     metadata = _event_metadata(attributes, span, conventions, span_kind)
     if metadata:

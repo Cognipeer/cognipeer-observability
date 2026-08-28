@@ -204,7 +204,7 @@ def _sanitize_metadata_value(value: Any, config: Config, depth: int) -> Any:
 
 
 def _sanitize_metadata_value_unsafe(value: Any, config: Config, depth: int) -> Any:
-    if value is None or isinstance(value, bool) or isinstance(value, (int, float)):
+    if value is None or isinstance(value, (bool, int, float)):
         return value
 
     if isinstance(value, str):

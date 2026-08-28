@@ -1,47 +1,85 @@
 name: Release
 
-# Tag shape decides what publishes:
-#   js-v0.2.0      → npm only
-#   py-v0.2.0      → PyPI only
-#   v0.2.0         → both
+# GitHub Releases publish npm; push tags retain the PyPI publishing path:
+#   js-v0.2.0      → npm from a published GitHub Release
+#   py-v0.2.0      → PyPI from the tag push
+#   v0.2.0         → npm from the Release and PyPI from the tag push
 on:
   push:
     tags: ['v*', 'js-v*', 'py-v*']
 
+  release:
+    types: [published]
+
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing js-vX.Y.Z or vX.Y.Z tag to publish"
+        required: true
+        type: string
+
 jobs:
   npm:
-    if: startsWith(github.ref_name, 'js-v') || startsWith(github.ref_name, 'v')
+    if: >-
+      (github.event_name == 'release' &&
+      (startsWith(github.event.release.tag_name, 'js-v') || startsWith(github.event.release.tag_name, 'v'))) ||
+      (github.event_name == 'workflow_dispatch' &&
+      (startsWith(inputs.tag, 'js-v') || startsWith(inputs.tag, 'v')))
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: js
     permissions:
       contents: read
-      # Required for npm provenance — the published package is signed with a
-      # verifiable link back to this workflow run.
       id-token: write
+    concurrency:
+      group: npm-publish-${{ github.event.release.tag_name || inputs.tag }}
+      cancel-in-progress: false
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout release tag
+        uses: actions/checkout@v4
         with:
-          node-version: '22'
-          registry-url: https://registry.npmjs.org
+          ref: ${{ github.event.release.tag_name || inputs.tag }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
           cache: npm
           cache-dependency-path: js/package-lock.json
-      - run: npm ci
-      - run: npm test
-      - run: npm run build
-      - name: version matches the tag
-        run: |
-          TAG="${GITHUB_REF_NAME#js-}"
-          PKG="v$(node -p "require('./package.json').version")"
-          [ "$TAG" = "$PKG" ] || { echo "tag $TAG != package $PKG"; exit 1; }
-      - run: npm publish --provenance --access public
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify tag matches package.json version
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          TAG_NAME: ${{ github.event.release.tag_name || inputs.tag }}
+        run: |
+          TAG_VERSION="${TAG_NAME#js-}"
+          TAG_VERSION="${TAG_VERSION#v}"
+          PACKAGE_VERSION="$(node -p "require('./package.json').version")"
+          if [ "$TAG_VERSION" != "$PACKAGE_VERSION" ]; then
+            echo "Tag version ($TAG_VERSION) does not match package.json version ($PACKAGE_VERSION)"
+            exit 1
+          fi
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Check package contents
+        run: npm pack --dry-run --ignore-scripts
+
+      - name: Publish
+        run: npm publish --access public
 
   pypi:
-    if: startsWith(github.ref_name, 'py-v') || startsWith(github.ref_name, 'v')
+    if: >-
+      github.event_name == 'push' &&
+      (startsWith(github.ref_name, 'py-v') || startsWith(github.ref_name, 'v'))
     runs-on: ubuntu-latest
     defaults:
       run:

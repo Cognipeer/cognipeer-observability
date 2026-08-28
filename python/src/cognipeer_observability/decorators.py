@@ -90,7 +90,8 @@ def observe(
         # `__name__`, not `__qualname__`: a qualified name drags in `<locals>`
         # and the enclosing class or function, which makes a noisy timeline
         # label for no gain.
-        label = name or getattr(func, "__name__", "observed")
+        raw_label = name or getattr(func, "__name__", None)
+        label = raw_label if isinstance(raw_label, str) else "observed"
 
         if inspect.isasyncgenfunction(func):
 

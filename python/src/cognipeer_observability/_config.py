@@ -6,7 +6,7 @@ import logging
 import os
 import re
 from dataclasses import dataclass, field
-from typing import Any, Callable, Dict, List, Optional, Pattern
+from typing import Any, Callable, Dict, List, Optional, Pattern, cast
 
 from .types import Agent, CaptureMode, Mode
 
@@ -69,7 +69,7 @@ class Config:
 
     api_key: str = ""
     base_url: str = DEFAULT_BASE_URL
-    agent: Agent = field(default_factory=dict)  # type: ignore[arg-type]
+    agent: Agent = field(default_factory=lambda: cast(Agent, {}))
     #: Default attribution tags stamped on every session; see
     #: ``types.SessionPayload.metadata``. Per-session values are merged on
     #: top, same as ``agent``.
