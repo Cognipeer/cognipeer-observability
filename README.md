@@ -86,7 +86,7 @@ across dev, staging and production:
 | `COGNIPEER_API_KEY` | — | Console API token. Without it, tracing disables itself and warns once — it never throws. |
 | `COGNIPEER_BASE_URL` | `https://console.cognipeer.com` | Your Console, for self-hosted installs |
 | `COGNIPEER_AGENT_NAME` | — | Default agent name for every session |
-| `COGNIPEER_CAPTURE_CONTENT` | `all` | `all`, `metadata` (structure and tokens, no message bodies), or `none` |
+| `COGNIPEER_CAPTURE_CONTENT` | `all` | `all`, `metadata` (structure and tokens, no message bodies), or `none` — see the compliance note below before shipping `all` with regulated or customer PII |
 | `COGNIPEER_TRACING_ENABLED` | `true` | Master switch |
 | `COGNIPEER_TRACING_MODE` | `auto` | `auto`, `stream` (live updates) or `batch` (one request per run) |
 | `COGNIPEER_DEBUG` | `false` | Log what the exporter is doing |
@@ -103,9 +103,18 @@ These are commitments, not aspirations — they are what the test suite checks.
   on a framework's hot path.
 - **No hidden dependencies.** Core is standard-library only. Every framework
   import is lazy and optional.
-- **Secrets and blobs do not leave your process.** API keys in prompts are
-  redacted by pattern, base64 data URLs are stripped, and oversized content is
-  capped before it is sent.
+- **Known secret shapes and blobs do not leave your process.** API keys and
+  tokens matching a built-in credential pattern are redacted, base64 data URLs
+  are stripped, and oversized content is capped before it is sent. This is a
+  secret filter, not a PII filter: with the default `capture=all`, ordinary
+  free text in `messages[].content` — a customer's name, email, account
+  number, or other sensitive content your application put in the prompt —
+  leaves your process unredacted, by design, so the trace stays useful.
+  **If your application ever puts regulated or customer PII into a prompt,
+  tool result, or error message, set `COGNIPEER_CAPTURE_CONTENT=metadata` (or
+  `none`)** before your first production trace, or pass `redactPatterns` /
+  `redact_patterns` for content your own code can reliably match. Content
+  capture policy is your data-handling decision, not this SDK's.
 - **Honest data.** When a framework cannot tell us something — token usage on
   a streaming call, tool schemas on a chat-completions path — the field is
   absent, not zero, and the docs say so.
