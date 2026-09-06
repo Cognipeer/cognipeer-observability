@@ -7,6 +7,13 @@ Three jobs, in order:
    routinely end up inside prompts, plus caller-supplied regexes;
 3. size capping — a single oversized message must not blow the ingest body
    limit (``TRACING_MAX_BODY_SIZE_MB``, 10 MB by default) for the whole session.
+
+Step 2 is a secret filter, not a PII filter: it has no notion of names,
+emails, account numbers or other free-text sensitive content, so with the
+default ``capture=all`` that content leaves the process untouched. A caller
+whose prompts may contain regulated or customer PII must opt into
+``capture=metadata``/``none`` or supply matching ``redact_patterns`` — this
+module cannot infer that policy on its own.
 """
 
 from __future__ import annotations
