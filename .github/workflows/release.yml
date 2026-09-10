@@ -25,7 +25,7 @@ jobs:
       (startsWith(github.event.release.tag_name, 'js-v') || startsWith(github.event.release.tag_name, 'v'))) ||
       (github.event_name == 'workflow_dispatch' &&
       (startsWith(inputs.tag, 'js-v') || startsWith(inputs.tag, 'v')))
-    runs-on: ubuntu-latest
+    runs-on: cognipeer-azure-runners
     defaults:
       run:
         working-directory: js
@@ -80,7 +80,7 @@ jobs:
     if: >-
       github.event_name == 'push' &&
       (startsWith(github.ref_name, 'py-v') || startsWith(github.ref_name, 'v'))
-    runs-on: ubuntu-latest
+    runs-on: cognipeer-azure-runners
     defaults:
       run:
         working-directory: python
