@@ -12,7 +12,7 @@ concurrency:
 jobs:
   js:
     name: js / node ${{ matrix.node }}
-    runs-on: ubuntu-latest
+    runs-on: cognipeer-azure-runners
     defaults:
       run:
         working-directory: js
@@ -35,7 +35,7 @@ jobs:
 
   python:
     name: python / ${{ matrix.python }}
-    runs-on: ubuntu-latest
+    runs-on: cognipeer-azure-runners
     defaults:
       run:
         working-directory: python
@@ -64,7 +64,7 @@ jobs:
   # liability, and this is the only check that catches a stray top-level import.
   python-no-extras:
     name: python / bare install
-    runs-on: ubuntu-latest
+    runs-on: cognipeer-azure-runners
     defaults:
       run:
         working-directory: python
@@ -94,7 +94,7 @@ jobs:
   # Same idea for JS: the core entry point must not reach for a peer.
   js-no-peers:
     name: js / bare install
-    runs-on: ubuntu-latest
+    runs-on: cognipeer-azure-runners
     defaults:
       run:
         working-directory: js
