@@ -76,6 +76,22 @@ jobs:
       - name: Publish
         run: npm publish --access public
 
+      # CRM yalnız kayıt tutar; erişilemezse ya da reddederse yayın etkilenmez.
+      - name: Report release to CRM
+        if: always()
+        continue-on-error: true
+        timeout-minutes: 3
+        env:
+          WEBHOOK_URL: ${{ secrets.RELEASE_WEBHOOK_URL }}
+          WEBHOOK_SECRET: ${{ secrets.RELEASE_WEBHOOK_SECRET }}
+          PRODUCT: observability
+          TARGET_KEY: default
+          CRM_ENVIRONMENT: production
+          RELEASE_VERSION: ${{ github.event.release.tag_name || inputs.tag }}
+          RELEASE_STATUS: ${{ job.status == 'success' && 'succeeded' || 'failed' }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: COMMIT_SHA="$(git rev-parse HEAD)" bash "$GITHUB_WORKSPACE/ci/notify-release-crm.sh"
+
   pypi:
     if: >-
       github.event_name == 'push' &&
@@ -104,3 +120,19 @@ jobs:
       - uses: pypa/gh-action-pypi-publish@release/v1
         with:
           packages-dir: python/dist
+
+      # CRM yalnız kayıt tutar; erişilemezse ya da reddederse yayın etkilenmez.
+      - name: Report release to CRM
+        if: always()
+        continue-on-error: true
+        timeout-minutes: 3
+        env:
+          WEBHOOK_URL: ${{ secrets.RELEASE_WEBHOOK_URL }}
+          WEBHOOK_SECRET: ${{ secrets.RELEASE_WEBHOOK_SECRET }}
+          PRODUCT: observability
+          TARGET_KEY: default
+          CRM_ENVIRONMENT: production
+          RELEASE_VERSION: ${{ github.ref_name }}
+          RELEASE_STATUS: ${{ job.status == 'success' && 'succeeded' || 'failed' }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: COMMIT_SHA="$(git rev-parse HEAD)" bash "$GITHUB_WORKSPACE/ci/notify-release-crm.sh"
