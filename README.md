@@ -57,7 +57,7 @@ change to how your agent calls its models.
 | [LangGraph](https://docs.cognipeer.com/console/guide/observe/integrations/langgraph) | ✅ | ✅ | Same handler + thread/interrupt handling |
 | [OpenAI Agents SDK](https://docs.cognipeer.com/console/guide/observe/integrations/openai-agents) | ✅ | ✅ | Tracing processor |
 | [Claude Agent SDK](https://docs.cognipeer.com/console/guide/observe/integrations/claude-agent-sdk) | ✅ | ✅ | Message-stream tracer |
-| [Vercel AI SDK](https://docs.cognipeer.com/console/guide/observe/integrations/vercel-ai) | — | ✅ | Model middleware or `experimental_telemetry` |
+| [Vercel AI SDK](https://docs.cognipeer.com/console/guide/observe/integrations/vercel-ai) | — | ✅ | `installVercelAITracing()` (ai@6, ai@7), `experimental_telemetry` (ai@3 to ai@6) or model middleware |
 | [n8n](https://docs.cognipeer.com/console/guide/observe/integrations/n8n) | — | ✅ | Execution bridge or external hook |
 | [Anything OpenTelemetry](https://docs.cognipeer.com/console/guide/observe/integrations/opentelemetry) | ✅ | ✅ | Span exporter — CrewAI, LlamaIndex, Pydantic AI, Google ADK, Strands, Semantic Kernel, smolagents … |
 | [Anything else](https://docs.cognipeer.com/console/guide/observe/integrations/manual) | ✅ | ✅ | `@observe` / `observe()` and the session API |
