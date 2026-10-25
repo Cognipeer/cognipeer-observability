@@ -7,6 +7,10 @@
 [![npm](https://img.shields.io/npm/v/@cognipeer/observability?label=%40cognipeer%2Fobservability)](https://www.npmjs.com/package/@cognipeer/observability)
 [![PyPI](https://img.shields.io/pypi/v/cognipeer-observability?label=cognipeer-observability)](https://pypi.org/project/cognipeer-observability/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![stars](https://img.shields.io/github/stars/Cognipeer/cognipeer-observability?style=social)](https://github.com/Cognipeer/cognipeer-observability)
+[![docs](https://img.shields.io/badge/docs-docs.cognipeer.com-0A7CFF)](https://docs.cognipeer.com/observability/)
+
+[Docs](https://docs.cognipeer.com/observability/) · [Quick start](#install) · [Examples](./examples) · [Changelog](./CHANGELOG.md)
 
 </div>
 
@@ -155,6 +159,20 @@ works today and a native package is a convenience, not a necessity.
 Adding a framework is deliberately mechanical: implement the mapping onto the
 event model in [`docs/data-model.md`](docs/data-model.md) and add an example.
 See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Cognipeer open-source projects
+
+| Project | What it does |
+| --- | --- |
+| [Cognipeer Console](https://github.com/Cognipeer/console) | Self-hosted AI gateway and control plane: OpenAI-compatible routing, RAG, MCP hub, guardrails and agent tracing |
+| [console-sdk](https://github.com/Cognipeer/console-sdk) | TypeScript SDK for the Cognipeer Console API |
+| [agent-sdk](https://github.com/Cognipeer/agent-sdk) | Lightweight, message-first agent runtime |
+| [agent-server](https://github.com/Cognipeer/agent-server) | Ready-made REST API layer for AI agents |
+| [chat-ui](https://github.com/Cognipeer/chat-ui) | React chat UI components for AI agents |
+| [to-markdown](https://github.com/Cognipeer/to-markdown) | Convert PDF, Office, HTML and more to Markdown for LLM pipelines |
+| [graph-builder](https://github.com/Cognipeer/graph-builder) | Turn text sources into a queryable graph |
+
+If this project is useful to you, a ⭐ on GitHub helps other developers find it.
 
 ## Licence
 
