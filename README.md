@@ -10,7 +10,7 @@
 [![stars](https://img.shields.io/github/stars/Cognipeer/cognipeer-observability?style=social)](https://github.com/Cognipeer/cognipeer-observability)
 [![docs](https://img.shields.io/badge/docs-docs.cognipeer.com-0A7CFF)](https://docs.cognipeer.com/observability/)
 
-[Docs](https://docs.cognipeer.com/observability/) · [Quick start](#install) · [Examples](./examples) · [Changelog](./CHANGELOG.md)
+[Docs](https://docs.cognipeer.com/observability/) · [Quick start](#install) · [Examples](./examples) · [Changelog](./CHANGELOG.md) · [Contact](mailto:developer@cognipeer.com)
 
 </div>
 
@@ -173,6 +173,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 | [graph-builder](https://github.com/Cognipeer/graph-builder) | Turn text sources into a queryable graph |
 
 If this project is useful to you, a ⭐ on GitHub helps other developers find it.
+
+Questions or enterprise support: [developer@cognipeer.com](mailto:developer@cognipeer.com).
 
 ## Licence
 
