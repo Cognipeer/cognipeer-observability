@@ -25,7 +25,7 @@ change to how your agent calls its models.
 
 This package is the TypeScript half of [`cognipeer-observability`](https://github.com/Cognipeer/cognipeer-observability),
 an MIT-licensed monorepo also publishing [`cognipeer-observability`](https://pypi.org/project/cognipeer-observability/)
-for Python. See the [full documentation and per-framework guides](https://docs.cognipeer.com/console/guide/observability/overview).
+for Python. See the [full documentation and per-framework guides](https://docs.cognipeer.com/console/guide/observe/integrations/overview).
 
 ## Install
 
@@ -41,14 +41,14 @@ around — nothing loads until you import its subpath.
 
 | Subpath | Framework | Guide |
 |---|---|---|
-| `@cognipeer/observability` | core client, `observe`/`trace`, session API | [Manual instrumentation](https://docs.cognipeer.com/console/guide/observability/manual) |
-| `@cognipeer/observability/langchain` | LangChain callback handler (0.1 → 1.x) | [LangChain](https://docs.cognipeer.com/console/guide/observability/langchain) |
-| `@cognipeer/observability/langgraph` | LangGraph on top of the same handler | [LangGraph](https://docs.cognipeer.com/console/guide/observability/langgraph) |
-| `@cognipeer/observability/openai-agents` | OpenAI Agents SDK `TracingProcessor` | [OpenAI Agents SDK](https://docs.cognipeer.com/console/guide/observability/openai-agents) |
-| `@cognipeer/observability/claude-agent-sdk` | Claude Agent SDK message-stream tracer | [Claude Agent SDK](https://docs.cognipeer.com/console/guide/observability/claude-agent-sdk) |
-| `@cognipeer/observability/vercel-ai` | Model middleware / `experimental_telemetry` | [Vercel AI SDK](https://docs.cognipeer.com/console/guide/observability/vercel-ai) |
-| `@cognipeer/observability/otel` | OpenTelemetry span exporter | [Anything OpenTelemetry](https://docs.cognipeer.com/console/guide/observability/opentelemetry) |
-| `cognipeer-n8n` CLI (see below) | n8n execution bridge | [n8n](https://docs.cognipeer.com/console/guide/observability/n8n) |
+| `@cognipeer/observability` | core client, `observe`/`trace`, session API | [Manual instrumentation](https://docs.cognipeer.com/console/guide/observe/integrations/manual) |
+| `@cognipeer/observability/langchain` | LangChain callback handler (0.1 → 1.x) | [LangChain](https://docs.cognipeer.com/console/guide/observe/integrations/langchain) |
+| `@cognipeer/observability/langgraph` | LangGraph on top of the same handler | [LangGraph](https://docs.cognipeer.com/console/guide/observe/integrations/langgraph) |
+| `@cognipeer/observability/openai-agents` | OpenAI Agents SDK `TracingProcessor` | [OpenAI Agents SDK](https://docs.cognipeer.com/console/guide/observe/integrations/openai-agents) |
+| `@cognipeer/observability/claude-agent-sdk` | Claude Agent SDK message-stream tracer | [Claude Agent SDK](https://docs.cognipeer.com/console/guide/observe/integrations/claude-agent-sdk) |
+| `@cognipeer/observability/vercel-ai` | Model middleware / `experimental_telemetry` | [Vercel AI SDK](https://docs.cognipeer.com/console/guide/observe/integrations/vercel-ai) |
+| `@cognipeer/observability/otel` | OpenTelemetry span exporter | [Anything OpenTelemetry](https://docs.cognipeer.com/console/guide/observe/integrations/opentelemetry) |
+| `cognipeer-n8n` CLI (see below) | n8n execution bridge | [n8n](https://docs.cognipeer.com/console/guide/observe/integrations/n8n) |
 
 Not on the list? If it emits OpenTelemetry spans — natively or through an
 OpenInference/OpenLLMetry instrumentor — the OTel route already covers it.
@@ -105,7 +105,7 @@ npx @cognipeer/observability cognipeer-n8n \
 
 Every flag also reads an environment variable (`N8N_URL`, `N8N_API_KEY`,
 `COGNIPEER_API_KEY`, `COGNIPEER_BASE_URL`, …), so a container needs no
-arguments at all. See the [n8n guide](https://docs.cognipeer.com/console/guide/observability/n8n)
+arguments at all. See the [n8n guide](https://docs.cognipeer.com/console/guide/observe/integrations/n8n)
 for the execution-bridge vs. webhook-hook tradeoffs.
 
 ## Design rules
@@ -125,7 +125,7 @@ for the execution-bridge vs. webhook-hook tradeoffs.
 ## Links
 
 - [Cognipeer Console](https://github.com/Cognipeer/console) — the product this feeds
-- [Full documentation](https://docs.cognipeer.com/console/guide/observability/overview)
+- [Full documentation](https://docs.cognipeer.com/console/guide/observe/integrations/overview)
 - [Data model](https://github.com/Cognipeer/cognipeer-observability/blob/main/docs/data-model.md) every integration maps onto
 - [Examples](https://github.com/Cognipeer/cognipeer-observability/tree/main/examples/js)
 - [Source repository](https://github.com/Cognipeer/cognipeer-observability) (monorepo, `js/` directory)

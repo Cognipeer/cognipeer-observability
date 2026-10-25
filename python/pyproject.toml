@@ -62,8 +62,8 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://docs.cognipeer.com/console/guide/observability/overview"
-Documentation = "https://docs.cognipeer.com/console/guide/observability/overview"
+Homepage = "https://docs.cognipeer.com/console/guide/observe/integrations/overview"
+Documentation = "https://docs.cognipeer.com/console/guide/observe/integrations/overview"
 Source = "https://github.com/Cognipeer/cognipeer-observability"
 Issues = "https://github.com/Cognipeer/cognipeer-observability/issues"
 
