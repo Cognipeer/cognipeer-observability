@@ -53,18 +53,18 @@ change to how your agent calls its models.
 
 | Framework | Python | TypeScript | How |
 |---|:---:|:---:|---|
-| [LangChain](https://docs.cognipeer.com/console/guide/observability/langchain) | ✅ | ✅ | Callback handler (works from 0.1 to 1.x) |
-| [LangGraph](https://docs.cognipeer.com/console/guide/observability/langgraph) | ✅ | ✅ | Same handler + thread/interrupt handling |
-| [OpenAI Agents SDK](https://docs.cognipeer.com/console/guide/observability/openai-agents) | ✅ | ✅ | Tracing processor |
-| [Claude Agent SDK](https://docs.cognipeer.com/console/guide/observability/claude-agent-sdk) | ✅ | ✅ | Message-stream tracer |
-| [Vercel AI SDK](https://docs.cognipeer.com/console/guide/observability/vercel-ai) | — | ✅ | Model middleware or `experimental_telemetry` |
-| [n8n](https://docs.cognipeer.com/console/guide/observability/n8n) | — | ✅ | Execution bridge or external hook |
-| [Anything OpenTelemetry](https://docs.cognipeer.com/console/guide/observability/opentelemetry) | ✅ | ✅ | Span exporter — CrewAI, LlamaIndex, Pydantic AI, Google ADK, Strands, Semantic Kernel, smolagents … |
-| [Anything else](https://docs.cognipeer.com/console/guide/observability/manual) | ✅ | ✅ | `@observe` / `observe()` and the session API |
+| [LangChain](https://docs.cognipeer.com/console/guide/observe/integrations/langchain) | ✅ | ✅ | Callback handler (works from 0.1 to 1.x) |
+| [LangGraph](https://docs.cognipeer.com/console/guide/observe/integrations/langgraph) | ✅ | ✅ | Same handler + thread/interrupt handling |
+| [OpenAI Agents SDK](https://docs.cognipeer.com/console/guide/observe/integrations/openai-agents) | ✅ | ✅ | Tracing processor |
+| [Claude Agent SDK](https://docs.cognipeer.com/console/guide/observe/integrations/claude-agent-sdk) | ✅ | ✅ | Message-stream tracer |
+| [Vercel AI SDK](https://docs.cognipeer.com/console/guide/observe/integrations/vercel-ai) | — | ✅ | Model middleware or `experimental_telemetry` |
+| [n8n](https://docs.cognipeer.com/console/guide/observe/integrations/n8n) | — | ✅ | Execution bridge or external hook |
+| [Anything OpenTelemetry](https://docs.cognipeer.com/console/guide/observe/integrations/opentelemetry) | ✅ | ✅ | Span exporter — CrewAI, LlamaIndex, Pydantic AI, Google ADK, Strands, Semantic Kernel, smolagents … |
+| [Anything else](https://docs.cognipeer.com/console/guide/observe/integrations/manual) | ✅ | ✅ | `@observe` / `observe()` and the session API |
 
 Not on the list? If it emits OpenTelemetry spans — and most 2026-era agent
 frameworks do, natively or through an OpenInference/OpenLLMetry instrumentor —
-the [OTLP route](https://docs.cognipeer.com/console/guide/observability/opentelemetry) already covers it.
+the [OTLP route](https://docs.cognipeer.com/console/guide/observe/integrations/opentelemetry) already covers it.
 
 ## Install
 
@@ -133,7 +133,7 @@ docs/     the ingest contract every integration maps onto
 ```
 
 Per-framework guides live with the
-[Console documentation](https://docs.cognipeer.com/console/guide/observability/overview)
+[Console documentation](https://docs.cognipeer.com/console/guide/observe/integrations/overview)
 rather than being duplicated here, so the two cannot drift.
 
 ## Roadmap

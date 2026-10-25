@@ -72,7 +72,7 @@ the weakest of the three:
   reads OTLP **JSON** — so it needs an OpenTelemetry Collector in between.
 
 If you want it anyway, the full setup including a working collector config is
-in the [n8n integration guide](https://cognipeer.github.io/console/guide/observability/n8n).
+in the [n8n integration guide](https://docs.cognipeer.com/console/guide/observe/integrations/n8n).
 
 Two traps worth knowing before you try:
 

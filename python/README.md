@@ -25,7 +25,7 @@ change to how your agent calls its models.
 
 This package is the Python half of [`cognipeer-observability`](https://github.com/Cognipeer/cognipeer-observability),
 an MIT-licensed monorepo also publishing [`@cognipeer/observability`](https://www.npmjs.com/package/@cognipeer/observability)
-for TypeScript. See the [full documentation and per-framework guides](https://cognipeer.github.io/console/guide/observability/overview).
+for TypeScript. See the [full documentation and per-framework guides](https://docs.cognipeer.com/console/guide/observe/integrations/overview).
 
 ## Install
 
@@ -48,12 +48,12 @@ Requires Python 3.9+.
 
 | Module | Framework | Guide |
 |---|---|---|
-| `cognipeer_observability` | core client, `observe`/`trace`, session API | [Manual instrumentation](https://cognipeer.github.io/console/guide/observability/manual) |
-| `cognipeer_observability.langchain` | LangChain callback handler (0.1 → 1.x) | [LangChain](https://cognipeer.github.io/console/guide/observability/langchain) |
-| `cognipeer_observability.langgraph` | LangGraph helpers on top of it | [LangGraph](https://cognipeer.github.io/console/guide/observability/langgraph) |
-| `cognipeer_observability.openai_agents` | OpenAI Agents SDK tracing processor | [OpenAI Agents SDK](https://cognipeer.github.io/console/guide/observability/openai-agents) |
-| `cognipeer_observability.claude_agent_sdk` | Claude Agent SDK hooks + message tracer | [Claude Agent SDK](https://cognipeer.github.io/console/guide/observability/claude-agent-sdk) |
-| `cognipeer_observability.otel` | OpenTelemetry span exporter | [Anything OpenTelemetry](https://cognipeer.github.io/console/guide/observability/opentelemetry) |
+| `cognipeer_observability` | core client, `observe`/`trace`, session API | [Manual instrumentation](https://docs.cognipeer.com/console/guide/observe/integrations/manual) |
+| `cognipeer_observability.langchain` | LangChain callback handler (0.1 → 1.x) | [LangChain](https://docs.cognipeer.com/console/guide/observe/integrations/langchain) |
+| `cognipeer_observability.langgraph` | LangGraph helpers on top of it | [LangGraph](https://docs.cognipeer.com/console/guide/observe/integrations/langgraph) |
+| `cognipeer_observability.openai_agents` | OpenAI Agents SDK tracing processor | [OpenAI Agents SDK](https://docs.cognipeer.com/console/guide/observe/integrations/openai-agents) |
+| `cognipeer_observability.claude_agent_sdk` | Claude Agent SDK hooks + message tracer | [Claude Agent SDK](https://docs.cognipeer.com/console/guide/observe/integrations/claude-agent-sdk) |
+| `cognipeer_observability.otel` | OpenTelemetry span exporter | [Anything OpenTelemetry](https://docs.cognipeer.com/console/guide/observe/integrations/opentelemetry) |
 
 Importing a framework module without its dependency installed raises a clear
 `ImportError` naming the extra to install — never a bare traceback.
@@ -115,7 +115,7 @@ short-lived process exits (a script, a Lambda handler, a CI job).
 ## Links
 
 - [Cognipeer Console](https://github.com/Cognipeer/console) — the product this feeds
-- [Full documentation](https://cognipeer.github.io/console/guide/observability/overview)
+- [Full documentation](https://docs.cognipeer.com/console/guide/observe/integrations/overview)
 - [Data model](https://github.com/Cognipeer/cognipeer-observability/blob/main/docs/data-model.md) every integration maps onto
 - [Examples](https://github.com/Cognipeer/cognipeer-observability/tree/main/examples/python)
 - [Source repository](https://github.com/Cognipeer/cognipeer-observability) (monorepo, `python/` directory)
